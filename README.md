@@ -4,17 +4,6 @@
 
 # [Порождающие паттерны](https://refactoring.guru/ru/design-patterns/creational-patterns) (Creational patterns)
 
-<details> 
-<summary>Псевдокод</summary>
-<p>
-
-```java
-
-```
-
-</p>
-</details>
-
 ### Абстрактная фабрика (Abstract factory)
 [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory) — это порождающий паттерн проектирования, который позволяет создавать семейства связанных объектов, не привязываясь к конкретным классам создаваемых объектов.
 
