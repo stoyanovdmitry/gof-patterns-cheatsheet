@@ -299,7 +299,6 @@ class Application is
 </details>
 
 ### Прототип (Prototype)
-
 [Прототип](https://refactoring.guru/ru/design-patterns/prototype) — это порождающий паттерн проектирования, который позволяет копировать объекты, не вдаваясь в подробности их реализации.
 
 ![Prototype UML](images/prototype-uml.png)
@@ -307,6 +306,7 @@ class Application is
 <details> 
 <summary>Псевдокод</summary>
 <p>
+
 ```java
 // Базовый прототип.
 abstract class Shape is
