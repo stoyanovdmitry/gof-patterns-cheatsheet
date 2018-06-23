@@ -523,4 +523,503 @@ hole.fits(large_sqpeg_adapter) // FALSE
     </p>
 </details>
 
+### Мост (Bridge)
+[Мост](https://refactoring.guru/ru/design-patterns/bridge) — это структурный паттерн проектирования, который разделяет один или несколько классов на две отдельные иерархии — абстракцию и реализацию, позволяя изменять их независимо друг от друга.
+
+![Bridge UML](images/bridge-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+// Класс пультов имеет ссылку на устройство, которым управляет.
+// Методы этого класса делегируют работу методам связанного
+// устройства.
+class Remote is
+    protected field device: Device
+    constructor Remote(device: Device) is
+        this.device = device
+    method togglePower() is
+        if (device.isEnabled()) then
+            device.disable()
+        else
+            device.enable()
+    method volumeDown() is
+        device.setVolume(device.getVolume() - 10)
+    method volumeUp() is
+        device.setVolume(device.getVolume() + 10)
+    method channelDown() is
+        device.setChannel(device.getChannel() - 1)
+    method channelUp() is
+        device.setChannel(device.getChannel() + 1)
+
+
+// Вы можете расширять класс пультов, не трогая код устройств.
+class AdvancedRemote extends Remote is
+    method mute() is
+        device.setVolume(0)
+
+
+// Все устройства имеют общий интерфейс. Поэтому с ними может
+// работать любой пульт.
+interface Device is
+    method isEnabled()
+    method enable()
+    method disable()
+    method getVolume()
+    method setVolume(percent)
+    method getChannel()
+    method setChannel(channel)
+
+
+// Но каждое устройство имеет особую реализацию.
+class Tv implements Device is
+    // ...
+
+class Radio implements Device is
+    // ...
+
+
+// Где-то в клиентском коде.
+tv = new Tv()
+remote = new Remote(tv)
+remote.power()
+
+radio = new Radio()
+remote = new AdvancedRemote(radio)
+```
+
+</p>
+</details>
+
+### Компоновщик (Composite)
+[Компоновщик](https://refactoring.guru/ru/design-patterns/composite) — это структурный паттерн проектирования, который позволяет сгруппировать множество объектов в древовидную структуру, а затем работать с ней так, как будто это единичный объект.
+
+![Composite UML]()
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+// Общий интерфейс компонентов.
+interface Graphic is
+    method move(x, y)
+    method draw()
+
+// Простой компонент.
+class Dot implements Graphic is
+    field x, y
+
+    constructor Dot(x, y) { ... }
+
+    method move(x, y) is
+        this.x += x, this.y += y
+
+    method draw() is
+        // Нарисовать точку в координате X, Y.
+
+// Компоненты могут расширять другие компоненты.
+class Circle extends Dot is
+    field radius
+
+    constructor Circle(x, y, radius) { ... }
+
+    method draw() is
+        // Нарисовать окружность в координате X, Y и радиусом R.
+
+// Контейнер содержит операции добавления/удаления дочерних
+// компонентов. Все стандартные операции интерфейса компонентов
+// он делегирует каждому из дочерних компонентов.
+class CompoundGraphic implements Graphic is
+    field children: array of Graphic
+
+    method add(child: Graphic) is
+        // Добавить компонент в список дочерних.
+
+    method remove(child: Graphic) is
+        // Убрать компонент из списка дочерних.
+
+    method move(x, y) is
+        foreach (child in children) do
+            child.move(x, y)
+
+    method draw() is
+        // 1. Для каждого дочернего компонента:
+        //     - Отрисовать компонент.
+        //     - Определить координаты максимальной границы.
+        // 2. Нарисовать пунктирную границу вокруг всей области.
+
+
+// Приложение работает единообразно как с единичными
+// компонентами, так и с целыми группами компонентов.
+class ImageEditor is
+    method load() is
+        all = new CompoundGraphic()
+        all.add(new Dot(1, 2))
+        all.add(new Circle(5, 3, 10))
+        // ...
+
+    // Группировка выбранных компонентов в один сложный
+    // компонент.
+    method groupSelected(components: array of Graphic) is
+        group = new CompoundGraphic()
+        group.add(components)
+        all.remove(components)
+        all.add(group)
+        // Все компоненты будут отрисованы.
+        all.draw()
+```
+
+</p>
+</details>
+
+### Декоратор (Decorator)
+[Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это структурный паттерн проектирования, который позволяет динамически добавлять объектам новую функциональность, оборачивая их в полезные «обёртки».
+
+![Decorator UML](images/decorator-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+// Общий интерфейс компонентов.
+interface DataSource is
+    method writeData(data)
+    method readData():data
+
+// Один из конкретных компонентов реализует базовую
+// функциональность.
+class FileDataSource implements DataSource is
+    constructor FileDataSource(filename) { ... }
+
+    method writeData(data) is
+        // Записать данные в файл.
+
+    method readData():data is
+        // Прочитать данные из файла.
+
+// Родитель всех декораторов содержит код обёртывания.
+class DataSourceDecorator implements DataSource is
+    protected field wrappee: DataSource
+
+    constructor DataSourceDecorator(source: DataSource) is
+        wrappee = source
+
+    method writeData(data) is
+        wrappee.writeData(data)
+
+    method readData():data is
+        return wrappee.readData()
+
+// Конкретные декораторы добавляют что-то своё к базовому
+// поведению обёрнутого компонента.
+class EncyptionDecorator extends DataSourceDecorator is
+    method writeData(data) is
+        // 1. Зашифровать поданные данные.
+        // 2. Передать зашифрованные данные в метод writeData
+        // обёрнутого объекта (wrappee).
+
+    method readData():data is
+        // 1. Получить данные из метода readData обёрнутого
+        // объекта (wrappee).
+        // 2. Расшифровать их, если они зашифрованы.
+        // 3. Вернуть результат.
+
+// Декорировать можно не только базовые компоненты, но и уже
+// обёрнутые объекты.
+class CompressionDecorator extends DataSourceDecorator is
+    method writeData(data) is
+        // 1. Запаковать поданные данные.
+        // 2. Передать запакованные данные в метод writeData
+        // обёрнутого объекта (wrappee).
+
+    method readData():data is
+        // 1. Получить данные из метода readData обёрнутого
+        // объекта (wrappee).
+        // 2. Распаковать их, если они запакованы.
+        // 3. Вернуть результат.
+
+
+// Вариант 1. Простой пример сборки и использования декораторов.
+class Application is
+    method dumbUsageExample() is
+        source = new FileDataSource("somefile.dat")
+        source.writeData(salaryRecords)
+        // В файл были записаны чистые данные.
+
+        source = new CompressionDecorator(source)
+        source.writeData(salaryRecords)
+        // В файл были записаны сжатые данные.
+
+        source = new EncyptionDecorator(source)
+        // Сейчас в source находится связка из трёх объектов:
+        // Encryption > Compression > FileDataSource
+
+        source.writeData(salaryRecords)
+        // В файл были записаны сжатые и зашифрованные данные.
+
+
+// Вариант 2. Клиентский код, использующий внешний источник
+// данных. Класс SalaryManager ничего не знает о том, как именно
+// будут считаны и записаны данные. Он получает уже готовый
+// источник данных.
+class SalaryManager is
+    field source: DataSource
+
+    constructor SalaryManager(source: DataSource) { ... }
+
+    method load() is
+        return source.readData()
+
+    method save() is
+        source.writeData(salaryRecords)
+    // ...Остальные полезные методы...
+
+
+// Приложение может по-разному собирать декорируемые объекты, в
+// зависимости от условий использования.
+class ApplicationConfigurator is
+    method configurationExample() is
+        source = new FileDataSource("salary.dat")
+        if (enabledEncryption)
+            source = new EncyptionDecorator(source)
+        if (enabledCompression)
+            source = new CompressionDecorator(source)
+
+        logger = new SalaryManager(source)
+        salary = logger.load()
+    // ...
+```
+
+</p>
+</details>
+
+### Фасад (Facade)
+[Фасад](https://refactoring.guru/ru/design-patterns/facade) — это структурный паттерн проектирования, который предоставляет простой интерфейс к сложной системе классов, библиотеке или фреймворку.
+
+![Facade UML](images/facade-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+// Классы сложного стороннего фреймворка конвертации видео. Мы
+// не контролируем этот код, поэтому не можем его упростить.
+
+class VideoFile
+// ...
+
+class OggCompressionCodec
+// ...
+
+class MPEG4CompressionCodec
+// ...
+
+class CodecFactory
+// ...
+
+class BitrateReader
+// ...
+
+class AudioMixer
+// ...
+
+
+// Вместо этого мы создаём Фасад — простой интерфейс для работы
+// со сложным фреймворком. Фасад не имеет всей функциональности
+// фреймворка, но зато скрывает его сложность от клиентов.
+class VideoConverter is
+    method convert(filename, format):File is
+        file = new VideoFile(filename)
+        sourceCodec = new CodecFactory.extract(file)
+        if (format == "mp4")
+            distinationCodec = new MPEG4CompressionCodec()
+        else
+            distinationCodec = new OggCompressionCodec()
+        buffer = BitrateReader.read(filename, sourceCodec)
+        result = BitrateReader.convert(buffer, distinationCodec)
+        result = (new AudioMixer()).fix(result)
+        return new File(result)
+
+// Приложение не зависит от сложного фреймворка конвертации
+// видео. Кстати, если вы вдруг решите сменить фреймворк, вам
+// нужно будет переписать только класс фасада.
+class Application is
+    method main() is
+        convertor = new VideoConverter()
+        mp4 = convertor.convert("youtubevideo.ogg", "mp4")
+        mp4.save()
+```
+
+</p>
+</details>
+
+### Приспособленец/Легковес (Flyweight)
+[Легковес](https://refactoring.guru/ru/design-patterns/flyweight) — это структурный паттерн проектирования, который позволяет вместить бóльшее количество объектов в отведённую оперативную память. Легковес экономит память, разделяя общее состояние объектов между собой, вместо хранения одинаковых данных в каждом объекте.
+
+![Flyweight UML](images/flyweight-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+// Этот класс-легковес содержит часть полей, которые описывают
+// деревья. Эти поля не уникальны для каждого дерева, в отличие,
+// например, от координат: несколько деревьев могут иметь ту же
+// текстуру.
+//
+// Поэтому мы переносим повторяющиеся данные в один-единственный
+// объект и ссылаемся на него из множества отдельных деревьев.
+class TreeType is
+    field name
+    field color
+    field texture
+    constructor TreeType(name, color, texture) { ... }
+    method draw(canvas, x, y) is
+        // 1. Создать картинку данного типа, цвета и текстуры.
+        // 2. Нарисовать картинку на холсте в позиции X, Y.
+
+// Фабрика легковесов решает, когда нужно создать новый
+// легковес, а когда можно обойтись существующим.
+class TreeFactory is
+    static field treeTypes: collection of tree types
+    static method getTreeType(name, color, texture) is
+        type = treeTypes.find(name, color, texture)
+        if (type == null)
+            type = new TreeType(name, color, texture)
+            treeTypes.add(type)
+        return type
+
+// Контекстный объект, из которого мы выделили легковес
+// TreeType. В программе могут быть тысячи объектов Tree, так
+// как накладные расходы на их хранение совсем небольшие — в
+// памяти нужно держать всего три целых числа (две координаты и
+// ссылка).
+class Tree is
+    field x,y
+    field type: TreeType
+    constructor Tree(x, y, type) { ... }
+    method draw(canvas) is
+        type.draw(canvas, this.x, this.y)
+
+// Классы Tree и Forest являются клиентами Легковеса. При
+// желании их можно слить в один класс, если вам не нужно
+// расширять класс деревьев далее.
+class Forest is
+    field trees: collection of Trees
+
+    method plantTree(x, y, name, color, texture) is
+        type = TreeFactory.getTreeType(name, color, texture)
+        tree = new Tree(x, y, type)
+        trees.add(tree)
+
+    method draw(canvas) is
+        foreach (tree in trees) do
+            tree.draw(canvas)
+```
+
+</p>
+</details>
+
+### Заместитель (Proxy)
+[Заместитель](https://refactoring.guru/ru/design-patterns/proxy) — это структурный паттерн проектирования, который позволяет подставлять вместо реальных объектов специальные объекты-заменители. Эти объекты перехватывают вызовы к оригинальному объекту, позволяя сделать что-то до или после передачи вызова оригиналу.
+
+![Proxy UML](images/proxy-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+// Интерфейс удалённого сервиса.
+interface ThirdPartyYoutubeLib is
+    method listVideos()
+    method getVideoInfo(id)
+    method downloadVideo(id)
+
+// Конкретная реализация сервиса. Методы этого класса
+// запрашивают у Youtube различную информацию. Скорость запроса
+// зависит не только от качества интернет-канала пользователя,
+// но и от состояния самого Youtube. Значит, чем больше будет
+// вызовов к сервису, тем менее отзывчивой станет программа.
+class ThirdPartyYoutubeClass is
+    method listVideos() is
+        // Получить список видеороликов с помощью API Youtube.
+
+    method getVideoInfo(id) is
+        // Получить детальную информацию о каком-то видеоролике.
+
+    method downloadVideo(id) is
+        // Скачать видео с Youtube.
+
+// С другой стороны, можно кешировать запросы к Youtube и не
+// повторять их какое-то время, пока кеш не устареет. Но внести
+// этот код напрямую в сервисный класс нельзя, так как он
+// находится в сторонней библиотеке. Поэтому мы поместим логику
+// кеширования в отдельный класс-обёртку. Он будет делегировать
+// запросы к сервисному объекту, только если нужно
+// непосредственно выслать запрос.
+class CachedYoutubeClass implements ThirdPartyYoutubeLib is
+    private field service: ThirdPartyYoutubeClass
+    private field listCache, videoCache
+    field needReset
+
+    constructor CachedYoutubeClass(service: ThirdPartyYoutubeLib) is
+        this.service = service
+
+    method listVideos() is
+        if (listCache == null || needReset)
+            listCache = service.listVideos()
+        return listCache
+
+    method getVideoInfo(id) is
+        if (videoCache == null || needReset)
+            videoCache = service.getVideoInfo(id)
+        return videoCache
+
+    method downloadVideo(id) is
+        if (!downloadExists(id) || needReset)
+            service.downloadVideo(id)
+
+// Класс GUI, который использует сервисный объект. Вместо
+// реального сервиса, мы подсунем ему объект-заместитель. Клиент
+// ничего не заметит, так как заместитель имеет тот же
+// интерфейс, что и сервис.
+class YoutubeManager is
+    protected field service: ThirdPartyYoutubeLib
+
+    constructor YoutubeManager(service: ThirdPartyYoutubeLib) is
+        this.service = service
+
+    method renderVideoPage() is
+        info = service.getVideoInfo()
+        // Отобразить страницу видеоролика.
+
+    method renderListPanel() is
+        list = service.listVideos()
+        // Отобразить список превьюшек видеороликов.
+
+    method reactOnUserInput() is
+        renderVideoPage()
+        renderListPanel()
+
+// Конфигурационная часть приложения создаёт и передаёт клиентам
+// объект заместителя.
+class Application is
+    method init() is
+        youtubeService = new ThirdPartyYoutubeClass()
+        youtubeProxy = new CachedYoutubeClass(youtubeService)
+        manager = new YoutubeManager(youtubeProxy)
+        manager.reactOnUserInput()
+```
+
+</p>
+</details>
+
 # Поведенческие паттерны (Behavioral patterns)
+
