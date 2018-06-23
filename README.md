@@ -14,7 +14,14 @@
 ### Абстрактная фабрика (Abstract factory)
 [Абстрактная фабрика](https://refactoring.guru/ru/design-patterns/abstract-factory) — это порождающий паттерн проектирования, который позволяет создавать семейства связанных объектов, не привязываясь к конкретным классам создаваемых объектов.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Abstract Factory UML](images/abstract-factory-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -112,7 +119,14 @@ class ApplicationConfigurator is
 ### Фабричный метод (Factory method)
 [Фабричный метод](https://refactoring.guru/ru/design-patterns/factory-method) — это порождающий паттерн проектирования, который определяет общий интерфейс для создания объектов в суперклассе, позволяя подклассам изменять тип создаваемых объектов.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Factory Method UML](images/factory-method-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -196,7 +210,14 @@ class ClientApplication is
 ### Строитель (Builder)
 [Строитель](https://refactoring.guru/ru/design-patterns/builder) — это порождающий паттерн проектирования, который позволяет создавать сложные объекты пошагово. Строитель даёт возможность использовать один и тот же код строительства для получения разных представлений объектов.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Builder UML](images/builder-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -301,7 +322,14 @@ class Application is
 ### Прототип (Prototype)
 [Прототип](https://refactoring.guru/ru/design-patterns/prototype) — это порождающий паттерн проектирования, который позволяет копировать объекты, не вдаваясь в подробности их реализации.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Prototype UML](images/prototype-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -407,7 +435,14 @@ class Application is
 ### Одиночка (Singleton)
 [Одиночка](https://refactoring.guru/ru/design-patterns/singleton) — это порождающий паттерн проектирования, который гарантирует, что у класса есть только один экземпляр, и предоставляет к нему глобальную точку доступа.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Singleton UML](images/singleton-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -458,7 +493,14 @@ class Application is
 ### Адаптер (Adapter)
 [Адаптер](https://refactoring.guru/ru/design-patterns/adapter) — это структурный паттерн проектирования, который позволяет объектам с несовместимыми интерфейсами работать вместе.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Adapter UML](images/adapter-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -526,7 +568,14 @@ hole.fits(large_sqpeg_adapter) // FALSE
 ### Мост (Bridge)
 [Мост](https://refactoring.guru/ru/design-patterns/bridge) — это структурный паттерн проектирования, который разделяет один или несколько классов на две отдельные иерархии — абстракцию и реализацию, позволяя изменять их независимо друг от друга.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Bridge UML](images/bridge-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -596,7 +645,14 @@ remote = new AdvancedRemote(radio)
 ### Компоновщик (Composite)
 [Компоновщик](https://refactoring.guru/ru/design-patterns/composite) — это структурный паттерн проектирования, который позволяет сгруппировать множество объектов в древовидную структуру, а затем работать с ней так, как будто это единичный объект.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Composite UML](images/composite-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -678,7 +734,14 @@ class ImageEditor is
 ### Декоратор (Decorator)
 [Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это структурный паттерн проектирования, который позволяет динамически добавлять объектам новую функциональность, оборачивая их в полезные «обёртки».
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Decorator UML](images/decorator-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -800,7 +863,14 @@ class ApplicationConfigurator is
 ### Фасад (Facade)
 [Фасад](https://refactoring.guru/ru/design-patterns/facade) — это структурный паттерн проектирования, который предоставляет простой интерфейс к сложной системе классов, библиотеке или фреймворку.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Facade UML](images/facade-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -861,7 +931,14 @@ class Application is
 ### Приспособленец/Легковес (Flyweight)
 [Легковес](https://refactoring.guru/ru/design-patterns/flyweight) — это структурный паттерн проектирования, который позволяет вместить бóльшее количество объектов в отведённую оперативную память. Легковес экономит память, разделяя общее состояние объектов между собой, вместо хранения одинаковых данных в каждом объекте.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Flyweight UML](images/flyweight-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -929,7 +1006,14 @@ class Forest is
 ### Заместитель (Proxy)
 [Заместитель](https://refactoring.guru/ru/design-patterns/proxy) — это структурный паттерн проектирования, который позволяет подставлять вместо реальных объектов специальные объекты-заменители. Эти объекты перехватывают вызовы к оригинальному объекту, позволяя сделать что-то до или после передачи вызова оригиналу.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Proxy UML](images/proxy-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1026,7 +1110,14 @@ class Application is
 ### Цепочка обязанностей (Chain of Responsibility)
 [Цепочка обязанностей](https://refactoring.guru/ru/design-patterns/chain-of-responsibility) — это поведенческий паттерн проектирования, который позволяет передавать запросы последовательно по цепочке обработчиков. Каждый последующий обработчик решает, может ли он обработать запрос сам и стоит ли передавать запрос дальше по цепи.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Chain of Responsibility UML](images/chain-of-responsibility-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1126,7 +1217,14 @@ class Application is
 ### Комманда (Command)
 [Комманда](https://refactoring.guru/ru/design-patterns/command) — это поведенческий паттерн проектирования, который позволяет передавать запросы последовательно по цепочке обработчиков. Каждый последующий обработчик решает, может ли он обработать запрос сам и стоит ли передавать запрос дальше по цепи.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Command UML](images/command-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1275,7 +1373,14 @@ class Application is
 ### Итератор (Iterator)
 [Итератор](https://refactoring.guru/ru/design-patterns/iterator) — это поведенческий паттерн проектирования, который позволяет передавать запросы последовательно по цепочке обработчиков. Каждый последующий обработчик решает, может ли он обработать запрос сам и стоит ли передавать запрос дальше по цепи.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Iterator UML](images/iterator-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1380,7 +1485,14 @@ class Application is
 ### Посредник (Mediator)
 [Посредник](https://refactoring.guru/ru/design-patterns/mediator) — это поведенческий паттерн проектирования, который позволяет передавать запросы последовательно по цепочке обработчиков. Каждый последующий обработчик решает, может ли он обработать запрос сам и стоит ли передавать запрос дальше по цепи.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Mediator UML](images/mediator-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1472,7 +1584,14 @@ class Checkbox extends Component is
 ### Хранитель/Снимок (Memento)!!!
 [Снимок](https://refactoring.guru/ru/design-patterns/memento) — это поведенческий паттерн проектирования, который позволяет сохранять и восстанавливать прошлые состояния объектов, не раскрывая подробностей их реализации.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Memento UML](images/memento-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1541,7 +1660,14 @@ class Command is
 ### Наблюдатель (Observer)
 [Наблюдатель](https://refactoring.guru/ru/design-patterns/observer) — это поведенческий паттерн проектирования, который создаёт механизм подписки, позволяющий одним объектам следить и реагировать на события, происходящие в других объектах.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Observer UML](images/observer-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1640,7 +1766,14 @@ class Application is
 ### Состояние (State)
 [Состояние](https://refactoring.guru/ru/design-patterns/state) — это поведенческий паттерн проектирования, который позволяет объектам менять поведение в зависимости от своего состояния. Извне создаётся впечатление, что изменился класс объекта.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![State UML](images/state-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1777,7 +1910,14 @@ class Player is
 ### Стратегия (Strategy)
 [Стратегия](https://refactoring.guru/ru/design-patterns/strategy) — это поведенческий паттерн проектирования, который определяет семейство схожих алгоритмов и помещает каждый из них в собственный класс, после чего алгоритмы можно взаимозаменять прямо во время исполнения программы.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Strategy UML](images/strategy-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1847,7 +1987,14 @@ class ExampleApplication is
 ### Шаблонный метод (Template Method)
 [Шаблонный метод](https://refactoring.guru/ru/design-patterns/template-method) — это поведенческий паттерн проектирования, который определяет скелет алгоритма, перекладывая ответственность за некоторые его шаги на подклассы. Паттерн позволяет подклассам переопределять шаги алгоритма, не меняя его общей структуры.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Template Method UML](images/template-method-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
@@ -1930,7 +2077,14 @@ class MonstersAI extends GameAI is
 ### Посетитель (Visitor)
 [Посетитель](https://refactoring.guru/ru/design-patterns/visitor) — это поведенческий паттерн проектирования, который позволяет добавлять в программу новые операции, не изменяя классы объектов, над которыми эти операции могут выполняться.
 
+<details> 
+<summary>UML</summary>
+<p>
+
 ![Visitor UML](images/visitor-uml.png)
+
+</p>
+</details>
 
 <details> 
 <summary>Псевдокод</summary>
