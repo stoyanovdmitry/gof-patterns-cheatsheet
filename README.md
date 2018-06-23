@@ -461,8 +461,8 @@ class Application is
 ![Adapter UML](images/adapter-uml.png)
 
 <details> 
-    <summary>Псевдокод</summary>
-    <p>
+<summary>Псевдокод</summary>
+<p>
     
 ```java
 // Классы с совместимыми интерфейсами: КруглоеОтверстие и
@@ -520,7 +520,7 @@ hole.fits(small_sqpeg_adapter) // TRUE
 hole.fits(large_sqpeg_adapter) // FALSE
 ```
 
-    </p>
+</p>
 </details>
 
 ### Мост (Bridge)
