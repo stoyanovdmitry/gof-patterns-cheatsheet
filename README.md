@@ -596,7 +596,7 @@ remote = new AdvancedRemote(radio)
 ### Компоновщик (Composite)
 [Компоновщик](https://refactoring.guru/ru/design-patterns/composite) — это структурный паттерн проектирования, который позволяет сгруппировать множество объектов в древовидную структуру, а затем работать с ней так, как будто это единичный объект.
 
-![Composite UML]()
+![Composite UML](images/composite-uml.png)
 
 <details> 
 <summary>Псевдокод</summary>
