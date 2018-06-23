@@ -1,4 +1,8 @@
-﻿# [Порождающие паттерны](https://refactoring.guru/ru/design-patterns/creational-patterns) (Creational patterns)
+﻿# Описание
+
+Вся информация взята с сайта https://refactoring.guru/
+
+# [Порождающие паттерны](https://refactoring.guru/ru/design-patterns/creational-patterns) (Creational patterns)
 
 <details> 
 <summary>Псевдокод</summary>
