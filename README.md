@@ -1,14 +1,14 @@
 ﻿# [Порождающие паттерны](https://refactoring.guru/ru/design-patterns/creational-patterns) (Creational patterns)
 
 <details> 
-    <summary>Псевдокод</summary>
-    <p>
+<summary>Псевдокод</summary>
+<p>
 
 ```java
 
 ```
 
-    </p>
+</p>
 </details>
 
 ### Абстрактная фабрика (Abstract factory)
@@ -17,8 +17,8 @@
 ![Abstract Factory UML](images/abstract-factory-uml.png)
 
 <details> 
-    <summary>Псевдокод</summary>
-    <p>
+<summary>Псевдокод</summary>
+<p>
 
 ```java
 // Этот паттерн предполагает, что у вас есть несколько семейств
@@ -105,7 +105,7 @@ class ApplicationConfigurator is
         Application app = new Application(factory)
 ```
 
-    </p>
+</p>
 </details>
 
 
@@ -115,8 +115,8 @@ class ApplicationConfigurator is
 ![Factory Method UML](images/factory-method-uml.png)
 
 <details> 
-    <summary>Псевдокод</summary>
-    <p>
+<summary>Псевдокод</summary>
+<p>
 
 ```java
 // Паттерн Фабричный метод применим тогда, когда в программе
@@ -190,7 +190,7 @@ class ClientApplication is
         dialog.initialize()
         dialog.render()
 ```
-    </p>
+</p>
 </details>
 
 ### Строитель (Builder)
@@ -298,8 +298,160 @@ class Application is
 </p>
 </details>
 
+### Прототип (Prototype)
+
+[Прототип](https://refactoring.guru/ru/design-patterns/prototype) — это порождающий паттерн проектирования, который позволяет копировать объекты, не вдаваясь в подробности их реализации.
+
+![Prototype UML](images/prototype-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+```java
+// Базовый прототип.
+abstract class Shape is
+    field X: int
+    field Y: int
+    field color: string
+
+    // Копирование всех полей объекта происходит в конструкторе.
+    constructor Shape(source: Shape) is
+        if (source != null) then
+            this.X = source.X
+            this.Y = source.Y
+            this.color = source.color
+
+    // Результатом операции клонирования всегда будет объект из
+    // иерархии классов Shape.
+    abstract method clone(): Shape
+
+
+// Конкретный прототип. Метод клонирования создаёт новый объект
+// текущего класса, передавая в его конструктор ссылку на
+// собственный объект. Благодаря этому операция клонирования
+// получается атомарной — пока не выполнится конструктор, нового
+// объекта ещё не существует. Но как только конструктор завершит
+// работу, мы получим полностью готовый объект-клон, а не пустой
+// объект, который нужно ещё заполнить.
+class Rectangle extends Shape is
+    field width: int
+    field height: int
+
+    constructor Rectangle(source: Rectangle) is
+        // Вызов родительского конструктора нужен, чтобы
+        // скопировать потенциальные приватные поля, объявленные
+        // в родительском классе.
+        super(source)
+        if (source != null) then
+            this.width = source.width
+            this.height = source.height
+
+    method clone(): Shape is
+        return new Rectangle(this)
+
+
+class Circle extends Shape is
+    field radius: int
+
+    constructor Circle(source: Circle) is
+        super(source)
+        if (source != null) then
+            this.radius = source.radius
+
+    method clone(): Shape is
+        return new Circle(this)
+
+
+// Где-то в клиентском коде.
+class Application is
+    field shapes: array of Shape
+
+    constructor Application() is
+        Circle circle = new Circle()
+        circle.X = 10
+        circle.Y = 20
+        circle.radius = 15
+        shapes.add(circle)
+
+        Circle anotherCircle = circle.clone()
+        shapes.add(anotherCircle)
+        // anotherCircle будет содержать точную копию circle.
+
+        Rectangle rectangle = new Rectangle()
+        rectangle.width = 10
+        rectangle.height = 20
+        shapes.add(rectangle)
+
+    method businessLogic() is
+        // Не очевидный плюс Прототипа в том, что вы можете
+        // клонировать набор объектов, не зная их конкретных
+        // классов.
+        Array shapesCopy = new Array of Shapes.
+
+        // Например, мы не знаем, какие конкретно объекты
+        // находятся внутри массива shapes, так как он объявлен
+        // с типом Shape. Но благодаря полиморфизму, мы можем
+        // клонировать все объекты «вслепую». Будет выполнен
+        // метод clone того класса, которым является этот
+        // объект.
+        foreach (s in shapes) do
+            shapesCopy.add(s.clone())
+
+        // Переменная shapesCopy будет содержать точные копии
+        // элементов массива shapes.
+```
+
+</p>
+</details>
+
 ### Одиночка (Singleton)
-Одиночка — это порождающий паттерн проектирования, который гарантирует, что у класса есть только один экземпляр, и предоставляет к нему глобальную точку доступа.
+[Одиночка](https://refactoring.guru/ru/design-patterns/singleton) — это порождающий паттерн проектирования, который гарантирует, что у класса есть только один экземпляр, и предоставляет к нему глобальную точку доступа.
+
+![Singleton UML](images/singleton-uml.png)
+
+<details> 
+<summary>Псевдокод</summary>
+<p>
+
+```java
+class Database is
+    private field instance: Database
+
+    // Метод получения одиночки.
+    static method getInstance() is
+        if (this.instance == null) then
+            acquireThreadLock() and then
+                // На всякий случай ещё раз проверим, не был ли
+                // объект создан другим потоком, пока текущий
+                // ждал освобождения блокировки.
+                if (this.instance == null) then
+                    this.instance = new Database()
+        return this.instance
+
+    private constructor Database() is
+        // Здесь может жить код инициализации подключения к
+        // серверу баз данных.
+        // ...
+
+    public method query(sql) is
+        // Все запросы к базе данных будут проходить через этот
+        // метод. Поэтому имеет смысл поместить сюда какую-то
+        // логику кеширования.
+        // ...
+
+class Application is
+    method main() is
+        Database foo = Database.getInstance()
+        foo.query("SELECT ...")
+        // ...
+        Database bar = Database.getInstance()
+        bar.query("SELECT ...")
+        // Переменная "bar" содержит тот же объект, что и
+        // переменная "foo".
+```
+
+</p>
+</details>
 
 # [Структурные паттерны](https://refactoring.guru/ru/design-patterns/structural-patterns) (Structural patterns)
 
