@@ -724,7 +724,7 @@ class ImageEditor is
 </p>
 </details>
 
-### Декоратор (Decorator)
+### Декоратор/Обёртка (Decorator/Wrapper)
 [Декоратор](https://refactoring.guru/ru/design-patterns/decorator) — это структурный паттерн проектирования, который позволяет динамически добавлять объектам новую функциональность, оборачивая их в полезные «обёртки».
 
 <details> 
@@ -1574,7 +1574,7 @@ class Checkbox extends Component is
 </p>
 </details>
 
-### Хранитель/Снимок (Memento)!!!
+### Хранитель/Снимок (Memento)
 [Снимок](https://refactoring.guru/ru/design-patterns/memento) — это поведенческий паттерн проектирования, который позволяет сохранять и восстанавливать прошлые состояния объектов, не раскрывая подробностей их реализации.
 
 <details> 
